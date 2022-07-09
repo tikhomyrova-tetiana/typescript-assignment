@@ -1,4 +1,5 @@
 import React from 'react'
+import "./styles.css"
 
 interface Props {
     id: number,
@@ -9,7 +10,7 @@ interface Props {
 export default function CompanyItem(props: Props) {
     const {id, name, onClickRemove} = props
   return (
-    <div>
+    <div className="company">
         <p>{name}</p>
         <button onClick={() => onClickRemove(id)}>🗑️</button>
     </div>

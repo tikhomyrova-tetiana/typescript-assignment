@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import CompanyItem from '../CompanyItem/CompanyItem'
+import "./styles.css"
 
 type Company = {id: number, name: string}
 
@@ -14,13 +15,14 @@ export default function MainPage() {
         { "id": 819, "name": "Microsoft" },
         { "id": 427, "name": "Tesla" },
         { "id": 901, "name": "Alibaba" }])
+        // console.log(companies)
 
     const [input, setInput] = useState<string>("")
     const [search, setSearch] = useState<string>("")
     const [sort, setSort] = useState<string>("")
 
     const onClickAdd = (input: string) => {
-        setCompanies([...companies, {id: companies.length + 1, name: input}])
+        setCompanies([...companies, {id: Math.max(...companies.map(c => c.id)) + 1, name: input}])
     }
 
     const onClickRemove = (idToRemove: number) => {
@@ -47,16 +49,24 @@ export default function MainPage() {
         <button onClick={() => 
             {onClickAdd(input)
             setInput("")}}>➕</button>
-        <select value={sort} onChange={sorting}>
-            <option value="name"> A-Z </option>
-            <option value=""> Z-A </option>
-        </select>
-            
-        {sortedCompanies
-        .filter((company) => company.name.toLowerCase().includes(search.toLowerCase()))
-        .map(company => (
-        <CompanyItem id={company.id} name={company.name} onClickRemove={onClickRemove}/>
-        ))}
+        <table>
+            <thead >
+                Company name
+                <select value={sort} onChange={sorting}>
+                    <option value="name"> A-Z </option>
+                    <option value=""> Z-A </option>
+                </select>
+            </thead>
+            <tbody>
+            {sortedCompanies
+            .filter((company) => company.name.toLowerCase().includes(search.toLowerCase()))
+            .map(company => (
+                <tr key={company.id}>
+                    <CompanyItem id={company.id} name={company.name} onClickRemove={onClickRemove}/>
+                </tr>
+            ))}
+            </tbody>
+        </table>
         </div>
   )
 }
