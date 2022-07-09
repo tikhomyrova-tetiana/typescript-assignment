@@ -1,7 +1,16 @@
 import React from 'react'
 
-export default function CompanyItem() {
+interface Props {
+    id: number,
+    name: string
+}
+
+export default function CompanyItem(props: Props) {
+    const {id, name} = props
   return (
-    <div>CompanyItem</div>
+    <div>
+        <p>{name}</p>
+        <button>🗑️</button>
+    </div>
   )
 }
