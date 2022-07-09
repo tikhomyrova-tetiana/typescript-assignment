@@ -2,15 +2,16 @@ import React from 'react'
 
 interface Props {
     id: number,
-    name: string
+    name: string,
+    onClickRemove: any
 }
 
 export default function CompanyItem(props: Props) {
-    const {id, name} = props
+    const {id, name, onClickRemove} = props
   return (
     <div>
         <p>{name}</p>
-        <button>🗑️</button>
+        <button onClick={() => onClickRemove(id)}>🗑️</button>
     </div>
   )
 }

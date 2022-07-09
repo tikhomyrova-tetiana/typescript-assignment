@@ -20,7 +20,11 @@ export default function MainPage() {
     const onClickAdd = (input: string) => {
         setCompanies([...companies, {id: companies.length + 1, name: input}])
     }
-    console.log(companies)
+
+    const onClickRemove = (idToRemove: number) => {
+        const updatedList = companies.filter((company: Company) => company.id !== idToRemove)
+        setCompanies(updatedList)
+    }
 
   return (
     <div>
@@ -31,7 +35,7 @@ export default function MainPage() {
             
         {companies
         .map(c => (
-        <CompanyItem id={c.id} name={c.name}/>
+        <CompanyItem id={c.id} name={c.name} onClickRemove={onClickRemove}/>
         ))}
         </div>
   )
