@@ -16,6 +16,7 @@ export default function MainPage() {
         { "id": 901, "name": "Alibaba" }])
 
     const [input, setInput] = useState<string>("")
+    const [search, setSearch] = useState<string>("")
 
     const onClickAdd = (input: string) => {
         setCompanies([...companies, {id: companies.length + 1, name: input}])
@@ -28,14 +29,16 @@ export default function MainPage() {
 
   return (
     <div>
+        <input placeholder="🔍Search" value={search} onChange={(event) => setSearch(event.target.value)}/>
         <input placeholder="New company" value={input} onChange={(event) => setInput(event.target.value)}/>
         <button onClick={() => 
             {onClickAdd(input)
             setInput("")}}>➕</button>
             
         {companies
-        .map(c => (
-        <CompanyItem id={c.id} name={c.name} onClickRemove={onClickRemove}/>
+        .filter((company) => company.name.toLowerCase().includes(search.toLowerCase()))
+        .map(company => (
+        <CompanyItem id={company.id} name={company.name} onClickRemove={onClickRemove}/>
         ))}
         </div>
   )
